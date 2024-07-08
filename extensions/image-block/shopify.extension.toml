@@ -51,4 +51,4 @@ name = "Image URL"
 [[extensions.settings.fields]]
 key = "alt"
 type = "single_line_text_field"
-name = "Alt text"
+name = "Accessibility description"

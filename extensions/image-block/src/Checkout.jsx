@@ -11,9 +11,9 @@ export default reactExtension(
 );
 
 function Extension() {
-  const { image_url } = useSettings();
+  const { image_url, alt } = useSettings();
 
   return (
-    <Image source={ image_url } />
+    <Image source={ image_url } accessibilityDescription={ alt } />
   );
 }
