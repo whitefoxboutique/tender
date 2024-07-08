@@ -45,9 +45,13 @@ target = "purchase.checkout.block.render"
 
 [extensions.settings]
 [[extensions.settings.fields]]
-key = "image_url"
+key = "image_url_d"
 type = "single_line_text_field"
-name = "Image URL"
+name = "Desktop: Image URL"
+[[extensions.settings.fields]]
+key = "image_url_m"
+type = "single_line_text_field"
+name = "Mobile: Image URL"
 [[extensions.settings.fields]]
 key = "alt"
 type = "single_line_text_field"
