@@ -20,6 +20,16 @@ This app template does little more than install the CLI and scaffold a resposito
 1. You must [create a Shopify partner account](https://partners.shopify.com/signup) if you don’t have one.
 1. You must create a store for testing if you don't have one, either a [development store](https://help.shopify.com/en/partners/dashboard/development-stores#create-a-development-store) or a [Shopify Plus sandbox store](https://help.shopify.com/en/partners/dashboard/managing-stores/plus-sandbox-store).
 
+### tl;dr:
+
+1. `npm init @shopify/app@latest`
+1. Name it
+1. > Start by adding your first extension
+1. `cd name-it`
+1. `npm run shopify app generate extension`
+1. etc.
+1. `npm run deploy`
+
 ### Installing the template
 
 This template can be installed using your preferred package manager:
