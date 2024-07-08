@@ -48,3 +48,7 @@ target = "purchase.checkout.block.render"
 key = "image_url"
 type = "single_line_text_field"
 name = "Image URL"
+[[extensions.settings.fields]]
+key = "alt"
+type = "single_line_text_field"
+name = "Alt text"
