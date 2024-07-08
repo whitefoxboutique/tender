@@ -45,6 +45,6 @@ target = "purchase.checkout.block.render"
 
 [extensions.settings]
 [[extensions.settings.fields]]
-key = "image"
-type = "image_picker"
-name = "Image"
+key = "image_url"
+type = "single_line_text_field"
+name = "Image URL"
