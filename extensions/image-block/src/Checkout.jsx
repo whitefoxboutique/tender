@@ -1,8 +1,8 @@
 import {
-  Banner,
-  useApi,
-  useTranslate,
+  Banner,  
   reactExtension,
+  Image,
+  useSettings,
 } from '@shopify/ui-extensions-react/checkout';
 
 export default reactExtension(
@@ -11,12 +11,9 @@ export default reactExtension(
 );
 
 function Extension() {
-  const translate = useTranslate();
-  const { extension } = useApi();
+  const { image_url } = useSettings();
 
   return (
-    <Banner title="image-block">
-      {translate('welcome', {target: extension.target})}
-    </Banner>
+    <Image source={ image_url } />
   );
 }
