@@ -82,8 +82,13 @@ function Extension() {
 
   const itemPrice = targetInfo?.cost?.totalAmount?.amount / targetInfo?.quantity;
   console.log('itemPrice', itemPrice);
-  const itemsSubtotal = cartLines.reduce((total, line) => total + line?.cost?.totalAmount?.amount, 0);
+
+  const giftCardsTotal = appliedGiftCards.reduce((total, gc) => total + gc?.amountUsed?.amount, 0);
+  console.log('giftCardsTotal', giftCardsTotal);
+  
+  const itemsSubtotal = cartLines.reduce((total, line) => total + line?.cost?.totalAmount?.amount, 0) - giftCardsTotal;
   console.log('itemsSubtotal', itemsSubtotal);
+
   const spendFactor = itemsSubtotal / subtotalAmount?.amount;
   console.log('spendFactor', spendFactor);
   const adjustedPoints = spendFactor * itemPoints;
