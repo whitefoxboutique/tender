@@ -24,17 +24,25 @@ function Extension() {
 
   const pointsTotal = 100;
 
+  const debug = (
+    <Banner>
+      Debug
+    </Banner>
+  );
+
   if (!customer) {
     return (
       <Text>
+        { debug }
         <Link to={ loginLink }>Log in</Link> to earn { pointsTotal } points on this order!
       </Text>
     );
   }
 
   return (
-    <Banner title="loyalty-points-summary">
-      { JSON.stringify(customer) }
-    </Banner>
+    <Text>
+      { debug }
+      You're earning { pointsTotal } points on this order!
+    </Text>
   );
 }
