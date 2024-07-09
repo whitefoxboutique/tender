@@ -3,6 +3,7 @@ import {
   useApi,
   useAppMetafields,
   reactExtension,
+  useTarget,
 } from '@shopify/ui-extensions-react/checkout';
 
 export default reactExtension(
@@ -14,9 +15,11 @@ function Extension() {
   const metafields = useAppMetafields();
   console.log(metafields);
 
+  const targetInfo = useTarget();
+
   return (
     <Banner title="loyalty-points">
-      { JSON.stringify(metafields) }
+      { JSON.stringify(targetInfo) }
     </Banner>
   );
 }
