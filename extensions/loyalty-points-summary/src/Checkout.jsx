@@ -4,7 +4,7 @@ import {
 } from '@shopify/ui-extensions-react/checkout';
 
 export default reactExtension(
-  'purchase.checkout.reductions.render-before',
+  'purchase.checkout.cart-line-list.render-after',
   () => <Extension />,
 );
 
