@@ -4,6 +4,7 @@ import {
   reactExtension,
   useTarget,
   Text,
+  SkeletonText,
 } from '@shopify/ui-extensions-react/checkout';
 
 const { gidToId } = require('../../../utils');
@@ -31,11 +32,15 @@ function Extension() {
   })?.metafield;
 
   console.log('variantLoyaltyPointsMetafield', variantLoyaltyPointsMetafield);
-  // const { value } = variantLoyaltyPointsMetafield;
+  const { value } = variantLoyaltyPointsMetafield || {};
 
   return (
-    <Text>
-      Earning points!
-    </Text>
+    (value ?
+        <Text>
+          Earning { value } points!
+        </Text>
+      :
+        <SkeletonText inlineSize="large"></SkeletonText>
+    )
   );
 }
