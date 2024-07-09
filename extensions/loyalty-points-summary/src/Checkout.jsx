@@ -27,6 +27,10 @@ function Extension() {
   const debug = (
     <Banner>
       Debug
+      We need to get points total * (spend / subtotal)
+      points total: sum of line items loyalty points metafield
+      spend: total - gift card allocation
+      subtotal: as-is, hopefully it's a good indication of original line items total + shipping
     </Banner>
   );
 
