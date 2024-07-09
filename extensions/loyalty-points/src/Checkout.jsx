@@ -33,14 +33,14 @@ function Extension() {
   console.log('NMAKWLDN', allImported);
 
 
-  console.log('useTarget', useTarget());
-  console.log('useTotalAmount', useTotalAmount());
-  console.log('useSubtotalAmount', useSubtotalAmount());
-  console.log('useTotalShippingAmount', useTotalShippingAmount());
-  console.log('useCartLines', useCartLines());
-  console.log('useDiscountAllocations', useDiscountAllocations());
-  console.log('useDiscountCodes', useDiscountCodes());
-  console.log('useAppliedGiftCards', useAppliedGiftCards());
+  // console.log('useTarget', useTarget());
+  // console.log('useTotalAmount', useTotalAmount());
+  // console.log('useSubtotalAmount', useSubtotalAmount());
+  // console.log('useTotalShippingAmount', useTotalShippingAmount());
+  // console.log('useCartLines', useCartLines());
+  // console.log('useDiscountAllocations', useDiscountAllocations());
+  // console.log('useDiscountCodes', useDiscountCodes());
+  // console.log('useAppliedGiftCards', useAppliedGiftCards());
 
   const totalAmount = useTotalAmount();
   const subtotalAmount = useSubtotalAmount();
