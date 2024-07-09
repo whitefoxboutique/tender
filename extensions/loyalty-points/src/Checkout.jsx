@@ -1,9 +1,9 @@
 import {
-  Banner,
   useApi,
   useAppMetafields,
   reactExtension,
   useTarget,
+  Text,
 } from '@shopify/ui-extensions-react/checkout';
 
 const { gidToId } = require('../../../utils');
@@ -28,13 +28,14 @@ function Extension() {
     const { target, metafield } = mf;
     const { type, id } = target;
     return type === 'variant' && id === variantId;
-  });
+  })?.metafield;
 
   console.log('variantLoyaltyPointsMetafield', variantLoyaltyPointsMetafield);
+  // const { value } = variantLoyaltyPointsMetafield;
 
   return (
-    <Banner title="loyalty-points">
-      { variantId }
-    </Banner>
+    <Text>
+      Earning points!
+    </Text>
   );
 }
