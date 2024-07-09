@@ -1,6 +1,7 @@
 import {
   Banner,
   reactExtension,
+  useCustomer,
 } from '@shopify/ui-extensions-react/checkout';
 
 export default reactExtension(
@@ -9,9 +10,12 @@ export default reactExtension(
 );
 
 function Extension() {
+  const customer = useCustomer();
+  console.log('customer', customer);
+
   return (
     <Banner title="loyalty-points-summary">
-      You get points
+      { JSON.stringify(customer) }
     </Banner>
   );
 }
