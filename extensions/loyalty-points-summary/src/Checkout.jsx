@@ -4,6 +4,7 @@ import {
   reactExtension,
   useCustomer,
   Link,
+  useShop,
 } from '@shopify/ui-extensions-react/checkout';
 
 export default reactExtension(
@@ -13,14 +14,20 @@ export default reactExtension(
 
 function Extension() {
   const customer = useCustomer();
+  const shop = useShop();
+
   console.log('customer', customer);
+  console.log('shop', shop);
+
+  const { storefrontUrl } = shop;
+  const loginLink = `${ storefrontUrl }/account/login`;
 
   const pointsTotal = 100;
 
   if (!customer) {
     return (
       <Text>
-        <Link to="/account/login">Log in</Link> to earn { pointsTotal } points on this order!
+        <Link to={ loginLink }>Log in</Link> to earn { pointsTotal } points on this order!
       </Text>
     );
   }
