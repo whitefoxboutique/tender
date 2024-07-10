@@ -35,9 +35,6 @@ function Extension() {
   console.log('marketHandle', marketHandle);
 
   /* Markets show logic */
-  const showMarkets = show_markets.split(',');
-  const hideMarkets = hide_markets.split(',');
-
   console.log(show_markets, hide_markets);
 
   let show = true;
