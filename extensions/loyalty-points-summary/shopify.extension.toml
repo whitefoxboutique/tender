@@ -16,8 +16,11 @@ type = "ui_extension"
 # https://shopify.dev/docs/api/checkout-ui-extensions/unstable/extension-targets-overview
 
 [[extensions.targeting]]
-module = "./src/Checkout.jsx"
+module = "./src/Summary.jsx"
 target = "purchase.checkout.cart-line-list.render-after"
+[[extensions.targeting]]
+module = "./src/CartItemMessage.jsx"
+target = "purchase.checkout.cart-line-item.render-after"
 
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.
