@@ -10,7 +10,6 @@ name = "market-messaging"
 handle = "market-messaging"
 type = "ui_extension"
 
-
 # Controls where in Shopify your extension will be injected,
 # and the file that contains your extension’s source code. Learn more:
 # https://shopify.dev/docs/api/checkout-ui-extensions/unstable/extension-targets-overview
@@ -18,31 +17,9 @@ type = "ui_extension"
 [[extensions.targeting]]
 module = "./src/MMBanner.jsx"
 target = "purchase.checkout.block.render"
-
-[extensions.capabilities]
-# Gives your extension access to directly query Shopify’s storefront API.
-# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#api-access
-api_access = true
-
-# Gives your extension access to make external network calls, using the
-# JavaScript `fetch()` API. Learn more:
-# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#network-access
-# network_access = true
-
-# Loads metafields on checkout resources, including the cart,
-# products, customers, and more. Learn more:
-# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#metafields
-
-# [[extensions.metafields]]
-# namespace = "my_namespace"
-# key = "my_key"
-# [[extensions.metafields]]
-# namespace = "my_namespace"
-# key = "my_other_key"
-
-# Defines settings that will be collected from merchants installing
-# your extension. Learn more:
-# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#settings-definition
+[[extensions.targeting]]
+module = "./src/MMImage.jsx"
+target = "purchase.checkout.block.render"
 
 [extensions.settings]
 [[extensions.settings.fields]]
@@ -54,6 +31,25 @@ key = "text"
 type = "rich_text_field"
 name = "Message"
 [[extensions.settings.fields]]
+key = "status"
+type = "single_line_text_field"
+name = "Status"
+description = "info, warning, success, critical"
+
+[[extensions.settings.fields]]
+key = "image_url_d"
+type = "single_line_text_field"
+name = "Desktop: Image URL"
+[[extensions.settings.fields]]
+key = "image_url_m"
+type = "single_line_text_field"
+name = "Mobile: Image URL"
+[[extensions.settings.fields]]
+key = "alt"
+type = "single_line_text_field"
+name = "Accessibility description"
+
+[[extensions.settings.fields]]
 key = "show_markets"
 type = "single_line_text_field"
 name = "Do show on these markets:"
@@ -62,8 +58,4 @@ description = "Only applies if not blank"
 key = "hide_markets"
 type = "single_line_text_field"
 name = "Don't show on these markets:"
-[[extensions.settings.fields]]
-key = "status"
-type = "single_line_text_field"
-name = "Status"
-description = "info, warning, success, critical"
+
