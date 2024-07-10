@@ -1,4 +1,5 @@
 import {
+  useTranslate,
   Banner,
   Text,
   reactExtension,
@@ -26,6 +27,8 @@ export default reactExtension(
 );
 
 function Extension() {
+  const translate = useTranslate();
+
   const customer = useCustomer();
   const shop = useShop();
   const metafields = useAppMetafields();
@@ -56,17 +59,19 @@ function Extension() {
   //   </Banner>
   // );
 
+  const loginLinkEl = <Link to={ loginLink }>{ translate('log_in') }</Link>;
+
   if (!customer) {
     return (
       <Text>
-        <Link to={ loginLink }>Log in</Link> to earn { adjustedPointsTotal } points on this order!
+        { translate('logged_out_message', { points: adjustedPointsTotal, log_in: loginLinkEl }) }
       </Text>
     );
   }
 
   return (
     <Text>
-      You're earning { adjustedPointsTotal } points on this order!
+      { translate('logged_in_message', { points: adjustedPointsTotal }) }
     </Text>
   );
 }
