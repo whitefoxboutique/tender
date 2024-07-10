@@ -30,7 +30,7 @@ function Extension() {
 
 
 
-  console.log('NMAKWLDN', allImported);
+  // console.log('NMAKWLDN', allImported);
 
 
   // console.log('useTarget', useTarget());
@@ -54,7 +54,7 @@ function Extension() {
   // const giftCardsTotal = appliedGiftCards.reduce((total, agc) => total + parseInt(da?.discountedAmount?.amount), 0);
 
   const calculatedSpend = subtotalAmount?.amount - totalShippingAmount?.amount - discountsTotal;
-  console.log(calculatedSpend, totalAmount?.amount);
+  // console.log(calculatedSpend, totalAmount?.amount);
 
   const metafields = useAppMetafields();
   // console.log(metafields);
@@ -82,16 +82,16 @@ function Extension() {
 
 
   const itemPrice = targetInfo?.cost?.totalAmount?.amount / targetInfo?.quantity;
-  console.log('itemPrice', itemPrice);
+  // console.log('itemPrice', itemPrice);
 
   const giftCardsTotal = appliedGiftCards.reduce((total, gc) => total + gc?.amountUsed?.amount, 0);
-  console.log('giftCardsTotal', giftCardsTotal);
+  // console.log('giftCardsTotal', giftCardsTotal);
   
   const itemsSubtotal = cartLines.reduce((total, line) => total + line?.cost?.totalAmount?.amount, 0) - giftCardsTotal;
-  console.log('itemsSubtotal', itemsSubtotal);
+  // console.log('itemsSubtotal', itemsSubtotal);
 
   const spendFactor = itemsSubtotal / subtotalAmount?.amount;
-  console.log('spendFactor', spendFactor);
+  // console.log('spendFactor', spendFactor);
   const adjustedPoints = spendFactor * itemPoints;
 
   return (
