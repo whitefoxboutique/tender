@@ -7,6 +7,8 @@ import {
   useShop,
   useAppMetafields,
   useCartLines,
+  List,
+  ListItem,
 } from '@shopify/ui-extensions-react/checkout';
 
 const { gidToId } = require('../../../utils');
@@ -58,12 +60,14 @@ function Extension() {
   console.log('pointsTotal', pointsTotal);
 
   const debug = (
-    <Banner>
-      Debug
-      We need to get points total * (spend / subtotal)
-      points total: sum of line items loyalty points metafield
-      spend: total - gift card allocation
-      subtotal: as-is, hopefully it's a good indication of original line items total + shipping
+    <Banner title="Debug">
+      <List>
+        <ListItem>We need to get points total * (spend / subtotal)</ListItem>
+        <ListItem>points total: sum of line items loyalty points metafield</ListItem>
+        <ListItem>spend: total - gift card allocation</ListItem>
+        <ListItem>subtotal: as-is, hopefully it's a good indication of original line items total + shipping</ListItem>
+        <ListItem></ListItem>
+      </List>
     </Banner>
   );
 
