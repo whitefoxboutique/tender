@@ -76,7 +76,8 @@ function Extension() {
   const { value: itemPoints } = variantLoyaltyPointsMetafield || {};
 
   if (!itemPoints) {
-    return <SkeletonText inlineSize="large"></SkeletonText>;
+    return;
+    // return <SkeletonText inlineSize="large"></SkeletonText>;
   }
 
 
