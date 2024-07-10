@@ -1,7 +1,7 @@
 {
-  "log_in": "Log in",
-  "logged_out_message": "{{ log_in }} to earn {{ points }} points on this order!",
-  "logged_in_message": "You're earning {{ points }} points on this order!",
+  "log_in": "Sign up",
+  "logged_out_message": "Not a loyalty member? {{ log_in }} to get {{ points }} points for this order!",
+  "logged_in_message": "",
   "logged_out_cart_item_message": "",
   "logged_in_cart_item_message": "+{{ points }} points"
 }
