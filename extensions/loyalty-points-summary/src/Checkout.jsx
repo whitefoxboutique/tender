@@ -33,9 +33,6 @@ function Extension() {
   const shippingTotal = useTotalShippingAmount();
   const appliedGiftCards = useAppliedGiftCards();
 
-  console.log('customer', customer);
-  console.log('shop', shop);
-
   const { storefrontUrl } = shop;
   const loginLink = `${ storefrontUrl }/account/login`;
 
@@ -54,8 +51,6 @@ function Extension() {
     return map;
   }, {});
 
-  console.log('variantIdToPointsMap', variantIdToPointsMap);
-
   const pointsTotal = cartLines.reduce((total, line) => {
     const variantGid = line?.merchandise?.id;
     const variantId = gidToId(variantGid);
@@ -66,16 +61,11 @@ function Extension() {
     return total + points;
   }, 0);
 
-  console.log('pointsTotal', pointsTotal);
-
   const giftCardsTotal = appliedGiftCards.reduce((total, gc) => total + gc?.amountUsed?.amount, 0);
-  console.log('giftCardsTotal', giftCardsTotal);
 
   const spend = total?.amount - giftCardsTotal;
-  console.log('spend', spend);
 
   const pointsEarningOriginalTotal = subtotal?.amount + shippingTotal?.amount;
-  console.log('pointsEarningOriginalTotal', pointsEarningOriginalTotal);
 
   const factor = spend / pointsEarningOriginalTotal;
   const adjustedPointsTotal = Math.floor(pointsTotal * factor);
@@ -99,7 +89,6 @@ function Extension() {
   if (!customer) {
     return (
       <Text>
-        { debug }
         <Link to={ loginLink }>Log in</Link> to earn { adjustedPointsTotal } points on this order!
       </Text>
     );
@@ -107,7 +96,6 @@ function Extension() {
 
   return (
     <Text>
-      { debug }
       You're earning { adjustedPointsTotal } points on this order!
     </Text>
   );
