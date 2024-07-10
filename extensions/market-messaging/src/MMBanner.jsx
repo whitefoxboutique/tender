@@ -12,7 +12,13 @@ export default reactExtension(
 
 function Extension() {
 
-  const { title, text, show_markets, hide_markets } = useSettings();
+  const { 
+    title, 
+    text, 
+    show_markets, 
+    hide_markets,
+    status,
+  } = useSettings();
   const market = useLocalizationMarket();
   console.log(market);
   const { handle: marketHandle } = market;
@@ -34,7 +40,7 @@ function Extension() {
   }
 
   return (
-    <Banner title={ title }>
+    <Banner title={ title } status={ status }>
       { text }
     </Banner>
   );

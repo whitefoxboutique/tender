@@ -62,3 +62,8 @@ description = "Only applies if not blank"
 key = "hide_markets"
 type = "single_line_text_field"
 name = "Don't show on these markets:"
+[[extensions.settings.fields]]
+key = "status"
+type = "single_line_text_field"
+name = "Status"
+description = "info, warning, success, critical"
