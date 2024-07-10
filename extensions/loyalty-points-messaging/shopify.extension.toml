@@ -6,8 +6,8 @@
 api_version = "2024-04"
 
 [[extensions]]
-name = "loyalty-points-summary"
-handle = "loyalty-points-summary"
+name = "Loyalty Points Messaging"
+handle = "loyalty-points-messaging"
 type = "ui_extension"
 
 
