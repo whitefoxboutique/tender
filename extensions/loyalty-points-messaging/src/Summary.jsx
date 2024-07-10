@@ -61,17 +61,30 @@ function Extension() {
 
   const loginLinkEl = <Link to={ loginLink }>{ translate('log_in') }</Link>;
 
-  if (!customer) {
-    return (
-      <Text>
-        { translate('logged_out_message', { points: adjustedPointsTotal, log_in: loginLinkEl }) }
-      </Text>
-    );
+  console.log('adjustedPointsTotal', adjustedPointsTotal);
+  if (!adjustedPointsTotal) {
+    return;
   }
 
-  return (
-    <Text>
-      { translate('logged_in_message', { points: adjustedPointsTotal }) }
-    </Text>
-  );
+  try {
+
+    if (!customer) {
+      return (
+        <Text>
+          { translate('logged_out_message', { points: adjustedPointsTotal, log_in: loginLinkEl }) }
+        </Text>
+      );
+    }
+
+    return (
+      <Text>
+        { translate('logged_in_message', { points: adjustedPointsTotal }) }
+      </Text>
+    );
+
+  } catch(err) {
+    console.log(err);
+  }
+
+  return;
 }

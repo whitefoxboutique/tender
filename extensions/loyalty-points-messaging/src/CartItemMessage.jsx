@@ -47,17 +47,25 @@ function Extension() {
     // return <SkeletonText inlineSize="large"></SkeletonText>;
   }
 
-  if (!customer) {
+  try {
+
+    if (!customer) {
+      return (
+        <Text size="small">
+          { translate('logged_out_cart_item_message', { points: linePoints }) }
+        </Text>
+      );
+    }
+
     return (
-      <Text>
-        { translate('logged_out_cart_item_message', { points: linePoints }) }
+      <Text size="small">
+        { translate('logged_in_cart_item_message', { points: linePoints }) }
       </Text>
     );
+
+  } catch(err) {
+    console.log(err);
   }
 
-  return (
-    <Text>
-      { translate('logged_in_cart_item_message', { points: linePoints }) }
-    </Text>
-  );
+  return;
 }
