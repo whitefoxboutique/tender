@@ -1,22 +1,19 @@
 import {
-  useApi,
-  useAppMetafields,
   reactExtension,
-  useTarget,
   Text,
   SkeletonText,
+  useAppMetafields,
+  useCartLines,
   useTotalAmount,
   useSubtotalAmount,
   useTotalShippingAmount,
-  useCartLines,
-  useDiscountAllocations,
-  useDiscountCodes,
   useAppliedGiftCards,
+  useTarget,
 } from '@shopify/ui-extensions-react/checkout';
 
-import * as allImported from '@shopify/ui-extensions-react/checkout';
+// import * as allImported from '@shopify/ui-extensions-react/checkout';
 
-const { gidToId } = require('../../../utils');
+const { getAdjustedPointsTotal } = require('./utils');
 
 export default reactExtension(
   'purchase.checkout.cart-line-item.render-after',
@@ -25,78 +22,29 @@ export default reactExtension(
 
 function Extension() {
 
-
-
-
-
-
-  // console.log('NMAKWLDN', allImported);
-
-
-  // console.log('useTarget', useTarget());
-  // console.log('useTotalAmount', useTotalAmount());
-  // console.log('useSubtotalAmount', useSubtotalAmount());
-  // console.log('useTotalShippingAmount', useTotalShippingAmount());
-  // console.log('useCartLines', useCartLines());
-  // console.log('useDiscountAllocations', useDiscountAllocations());
-  // console.log('useDiscountCodes', useDiscountCodes());
-  // console.log('useAppliedGiftCards', useAppliedGiftCards());
-
+  const metafields = useAppMetafields();
+  const cartLines = useCartLines();
   const totalAmount = useTotalAmount();
   const subtotalAmount = useSubtotalAmount();
-  const totalShippingAmount = useTotalShippingAmount();
-  const cartLines = useCartLines();
-  const discountAllocations = useDiscountAllocations();
-  const discountCodes = useDiscountCodes();
+  const shippingTotalAmount = useTotalShippingAmount();
   const appliedGiftCards = useAppliedGiftCards();
 
-  const discountsTotal = discountAllocations.reduce((total, da) => total + parseInt(da?.discountedAmount?.amount), 0);
-  // const giftCardsTotal = appliedGiftCards.reduce((total, agc) => total + parseInt(da?.discountedAmount?.amount), 0);
+  const adjustedPointsTotal = getAdjustedPointsTotal(metafields, cartLines, appliedGiftCards, totalAmount, subtotalAmount); // , shippingTotalAmount
 
-  const calculatedSpend = subtotalAmount?.amount - totalShippingAmount?.amount - discountsTotal;
-  // console.log(calculatedSpend, totalAmount?.amount);
+  const target = useTarget();
+  const linePrice = target?.cost?.totalAmount?.amount;
+  const lineFactor = linePrice / totalAmount?.amount;
+  console.log('lineFactor', lineFactor);
+  const linePoints = Math.floor(adjustedPointsTotal * lineFactor);
 
-  const metafields = useAppMetafields();
-  // console.log(metafields);
-
-  const targetInfo = useTarget();
-  const { merchandise } = targetInfo;
-  const { id: variantGid } = merchandise;
-  const variantId = gidToId(variantGid);
-
-  // console.log('variantId', variantId);
-
-  const variantLoyaltyPointsMetafield = metafields.find(mf => {
-    const { target, metafield } = mf;
-    const { type, id } = target;
-    return type === 'variant' && id === variantId;
-  })?.metafield;
-
-  // console.log('variantLoyaltyPointsMetafield', variantLoyaltyPointsMetafield);
-  const { value: itemPoints } = variantLoyaltyPointsMetafield || {};
-
-  if (!itemPoints) {
+  if (!linePoints) {
     return;
     // return <SkeletonText inlineSize="large"></SkeletonText>;
   }
 
-
-  const itemPrice = targetInfo?.cost?.totalAmount?.amount / targetInfo?.quantity;
-  // console.log('itemPrice', itemPrice);
-
-  const giftCardsTotal = appliedGiftCards.reduce((total, gc) => total + gc?.amountUsed?.amount, 0);
-  // console.log('giftCardsTotal', giftCardsTotal);
-  
-  const itemsSubtotal = cartLines.reduce((total, line) => total + line?.cost?.totalAmount?.amount, 0) - giftCardsTotal;
-  // console.log('itemsSubtotal', itemsSubtotal);
-
-  const spendFactor = itemsSubtotal / subtotalAmount?.amount;
-  // console.log('spendFactor', spendFactor);
-  const adjustedPoints = spendFactor * itemPoints;
-
   return (
     <Text>
-      Earning { Math.floor(adjustedPoints) } points!
+      Earning { linePoints } points!
     </Text>
   );
 }
