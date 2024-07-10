@@ -12,6 +12,7 @@ import {
   SkeletonText,
   useTotalAmount,
   useSubtotalAmount,
+  useTotalShippingAmount,
   useAppliedGiftCards,
 } from '@shopify/ui-extensions-react/checkout';
 
@@ -29,6 +30,7 @@ function Extension() {
   const cartLines = useCartLines();
   const total = useTotalAmount();
   const subtotal = useSubtotalAmount();
+  const shippingTotal = useTotalShippingAmount();
   const appliedGiftCards = useAppliedGiftCards();
 
   console.log('customer', customer);
@@ -76,12 +78,12 @@ function Extension() {
     <Banner title="Debug">
       <List>
         <ListItem>We need to get points total * (spend / subtotal)</ListItem>
-        <ListItem>points total: sum of line items loyalty points metafield</ListItem>
+        <ListItem>points total: sum of line items loyalty points metafield [+ points for shipping (not gettable)]</ListItem>
         <ListItem>{ pointsTotal }</ListItem>
         <ListItem>spend: total - gift card allocation</ListItem>
         <ListItem>{ spend }</ListItem>
-        <ListItem>subtotal: as-is, hopefully it's a good indication of original line items total + shipping</ListItem>
-        <ListItem>{ subtotal?.amount }</ListItem>
+        <ListItem>subtotal: subtotal + shipping</ListItem>
+        <ListItem>{ subtotal?.amount + shippingTotal?.amount }</ListItem>
       </List>
     </Banner>
   );
