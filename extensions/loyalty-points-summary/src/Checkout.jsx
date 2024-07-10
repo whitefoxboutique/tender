@@ -70,7 +70,8 @@ function Extension() {
 
   const spend = total?.amount - giftCardsTotal;
 
-  const pointsEarningOriginalTotal = subtotal?.amount + shippingTotal?.amount;
+  // const pointsEarningOriginalTotal = subtotal?.amount + shippingTotal?.amount;
+  const pointsEarningOriginalTotal = subtotal?.amount;
 
   const factor = spend / pointsEarningOriginalTotal;
   const adjustedPointsTotal = Math.floor(pointsTotal * factor);
