@@ -11,6 +11,7 @@ import {
   ListItem,
   SkeletonText,
   useTotalAmount,
+  useSubtotalAmount,
   useAppliedGiftCards,
 } from '@shopify/ui-extensions-react/checkout';
 
@@ -27,6 +28,7 @@ function Extension() {
   const metafields = useAppMetafields();
   const cartLines = useCartLines();
   const total = useTotalAmount();
+  const subtotal = useSubtotalAmount();
   const appliedGiftCards = useAppliedGiftCards();
 
   console.log('customer', customer);
@@ -79,7 +81,7 @@ function Extension() {
         <ListItem>spend: total - gift card allocation</ListItem>
         <ListItem>{ spend }</ListItem>
         <ListItem>subtotal: as-is, hopefully it's a good indication of original line items total + shipping</ListItem>
-        <ListItem><SkeletonText></SkeletonText></ListItem>
+        <ListItem>{ subtotal?.amount }</ListItem>
       </List>
     </Banner>
   );
