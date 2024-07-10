@@ -50,7 +50,7 @@ name = "Accessibility description"
 key = "show_markets"
 type = "single_line_text_field"
 name = "Do show on these markets:"
-description = "Only applies if not blank"
+description = "Only applies if not blank. CSV of market handles e.g. au,ca,eu,international,nz,gb,us"
 [[extensions.settings.fields]]
 key = "hide_markets"
 type = "single_line_text_field"
