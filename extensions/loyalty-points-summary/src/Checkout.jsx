@@ -10,6 +10,8 @@ import {
   List,
   ListItem,
   SkeletonText,
+  useTotalAmount,
+  useAppliedGiftCards,
 } from '@shopify/ui-extensions-react/checkout';
 
 const { gidToId } = require('../../../utils');
@@ -24,6 +26,8 @@ function Extension() {
   const shop = useShop();
   const metafields = useAppMetafields();
   const cartLines = useCartLines();
+  const total = useTotalAmount();
+  const appliedGiftCards = useAppliedGiftCards();
 
   console.log('customer', customer);
   console.log('shop', shop);
@@ -60,6 +64,12 @@ function Extension() {
 
   console.log('pointsTotal', pointsTotal);
 
+  const giftCardsTotal = appliedGiftCards.reduce((total, gc) => total + gc?.amountUsed?.amount, 0);
+  console.log('giftCardsTotal', giftCardsTotal);
+
+  const spend = total?.amount - giftCardsTotal;
+  console.log('spend', spend);
+
   const debug = (
     <Banner title="Debug">
       <List>
@@ -67,7 +77,7 @@ function Extension() {
         <ListItem>points total: sum of line items loyalty points metafield</ListItem>
         <ListItem>{ pointsTotal }</ListItem>
         <ListItem>spend: total - gift card allocation</ListItem>
-        <ListItem><SkeletonText></SkeletonText></ListItem>
+        <ListItem>{ spend }</ListItem>
         <ListItem>subtotal: as-is, hopefully it's a good indication of original line items total + shipping</ListItem>
         <ListItem><SkeletonText></SkeletonText></ListItem>
       </List>
