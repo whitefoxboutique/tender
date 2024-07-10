@@ -7,7 +7,16 @@ const gidToId = (gid) => {
   return false;
 };
 
-const arraySum = (arr) => {
+const arraySum = (arr, { pathToNumber } = {}) => {
+  if (pathToNumber) {
+    const pathNodes = pathToNumber.split('.');
+      
+    return arr.reduce((total, item) => {
+      const number = pathNodes.reduce((acc, part) => acc?.[part], obj);
+      return total + number;
+    }, 0);
+  }
+  
   return arr.reduce((total, item) => {
     return total + item;
   }, 0);
