@@ -17,7 +17,7 @@ function Extension() {
 
   const { 
     title, 
-    text, 
+    message, 
     status,
 
     image_url_d,
@@ -52,7 +52,7 @@ function Extension() {
   if (!image_url_d) {
     return (
       <Banner title={ title } status={ status }>
-        { text }
+        { message }
       </Banner>
     );
   }

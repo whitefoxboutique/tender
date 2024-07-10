@@ -24,7 +24,7 @@ key = "title"
 type = "single_line_text_field"
 name = "Title"
 [[extensions.settings.fields]]
-key = "text"
+key = "message"
 type = "multi_line_text_field"
 name = "Message"
 [[extensions.settings.fields]]
