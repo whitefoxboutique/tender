@@ -1,4 +1,5 @@
 import {
+  useTranslate,
   reactExtension,
   Text,
   SkeletonText,
@@ -9,6 +10,7 @@ import {
   useTotalShippingAmount,
   useAppliedGiftCards,
   useTarget,
+  useCustomer,
 } from '@shopify/ui-extensions-react/checkout';
 
 // import * as allImported from '@shopify/ui-extensions-react/checkout';
@@ -22,12 +24,15 @@ export default reactExtension(
 
 function Extension() {
 
+  const translate = useTranslate();
+
   const metafields = useAppMetafields();
   const cartLines = useCartLines();
   const totalAmount = useTotalAmount();
   const subtotalAmount = useSubtotalAmount();
   const shippingTotalAmount = useTotalShippingAmount();
   const appliedGiftCards = useAppliedGiftCards();
+  const customer = useCustomer();
 
   const adjustedPointsTotal = getAdjustedPointsTotal(metafields, cartLines, appliedGiftCards, totalAmount, subtotalAmount); // , shippingTotalAmount
 
@@ -42,9 +47,17 @@ function Extension() {
     // return <SkeletonText inlineSize="large"></SkeletonText>;
   }
 
+  if (!customer) {
+    return (
+      <Text>
+        { translate('logged_out_cart_item_message', { points: linePoints }) }
+      </Text>
+    );
+  }
+
   return (
     <Text>
-      Earning { linePoints } points!
+      { translate('logged_in_cart_item_message', { points: linePoints }) }
     </Text>
   );
 }
