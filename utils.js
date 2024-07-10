@@ -7,6 +7,13 @@ const gidToId = (gid) => {
   return false;
 };
 
+const arraySum = (arr) => {
+  return arr.reduce((total, item) => {
+    return total + item;
+  }, 0);
+};
+
 module.exports = {
   gidToId,
+  arraySum,
 };
