@@ -9,6 +9,7 @@ import {
   useCartLines,
   List,
   ListItem,
+  SkeletonText,
 } from '@shopify/ui-extensions-react/checkout';
 
 const { gidToId } = require('../../../utils');
@@ -64,9 +65,11 @@ function Extension() {
       <List>
         <ListItem>We need to get points total * (spend / subtotal)</ListItem>
         <ListItem>points total: sum of line items loyalty points metafield</ListItem>
+        <ListItem>{ pointsTotal }</ListItem>
         <ListItem>spend: total - gift card allocation</ListItem>
+        <ListItem><SkeletonText></SkeletonText></ListItem>
         <ListItem>subtotal: as-is, hopefully it's a good indication of original line items total + shipping</ListItem>
-        <ListItem></ListItem>
+        <ListItem><SkeletonText></SkeletonText></ListItem>
       </List>
     </Banner>
   );
