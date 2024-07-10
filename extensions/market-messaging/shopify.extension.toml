@@ -32,6 +32,16 @@ key = "status"
 type = "single_line_text_field"
 name = "Status"
 description = "info, warning, success, critical"
+[[extensions.settings.fields]]
+key = "size"
+type = "single_line_text_field"
+name = "Size"
+description = "extraSmall, small, base, medium, large, extraLarge"
+[[extensions.settings.fields]]
+key = "alignment"
+type = "single_line_text_field"
+name = "Alignment"
+description = "start, center, end"
 
 [[extensions.settings.fields]]
 key = "image_url_d"

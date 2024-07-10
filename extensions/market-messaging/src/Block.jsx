@@ -19,6 +19,8 @@ function Extension() {
     title, 
     message, 
     status,
+    size,
+    alignment,
 
     image_url_d,
     image_url_m,
@@ -61,7 +63,7 @@ function Extension() {
   // Decide which block to show by whether an image is set.
   if (!image_url_d) {
     return (
-      <Banner title={ title } status={ status }>
+      <Banner title={ title } status={ status } size={ size } inlineAlignment={ alignment }>
         { message }
       </Banner>
     );
