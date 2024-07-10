@@ -35,6 +35,26 @@ const getPointsTotal = (metafields, cartLines) => {
   return pointsTotal;
 };
 
+const getAdjustedPointsTotal = (metafields, cartLines, appliedGiftCards, totalAmount, subtotalAmount) => { // , shippingTotalAmount
+  const pointsTotal = getPointsTotal(metafields, cartLines);
+
+  const giftCardsTotal = arraySum(appliedGiftCards, { pathToNumber: 'amountUsed.amount' });
+
+  const spend = totalAmount?.amount - giftCardsTotal;
+
+  const linesDiscountTotal = arraySum(cartLines.map(line => {
+    const { discountAllocations } = line;
+    return arraySum(discountAllocations, { pathToNumber: 'discountedAmount.amount' });
+  }));
+  const pointsEarningOriginalTotal = subtotalAmount?.amount + linesDiscountTotal; // + shippingTotalAmount?.amount;
+
+  const factor = spend / pointsEarningOriginalTotal;
+  const adjustedPointsTotal = Math.floor(pointsTotal * factor);
+
+  return adjustedPointsTotal;
+};
+
 module.exports = {
   getPointsTotal,
+  getAdjustedPointsTotal,
 };

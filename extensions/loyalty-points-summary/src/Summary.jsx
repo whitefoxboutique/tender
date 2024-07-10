@@ -18,7 +18,7 @@ import {
 
 const { gidToId, arraySum } = require('../../../utils');
 
-const { getPointsTotal } = require('./utils');
+const { getAdjustedPointsTotal } = require('./utils');
 
 export default reactExtension(
   'purchase.checkout.cart-line-list.render-after',
@@ -30,44 +30,31 @@ function Extension() {
   const shop = useShop();
   const metafields = useAppMetafields();
   const cartLines = useCartLines();
-  const total = useTotalAmount();
-  const subtotal = useSubtotalAmount();
-  const shippingTotal = useTotalShippingAmount();
+  const totalAmount = useTotalAmount();
+  const subtotalAmount = useSubtotalAmount();
+  const shippingTotalAmount = useTotalShippingAmount();
   const appliedGiftCards = useAppliedGiftCards();
 
   const { storefrontUrl } = shop;
   const loginLink = `${ storefrontUrl }/account/login`;
 
-  const pointsTotal = getPointsTotal(metafields, cartLines);
+  const adjustedPointsTotal = getAdjustedPointsTotal(metafields, cartLines, appliedGiftCards, totalAmount, subtotalAmount); // , shippingTotalAmount
 
-  const giftCardsTotal = arraySum(appliedGiftCards, { pathToNumber: 'amountUsed.amount' });
-
-  const spend = total?.amount - giftCardsTotal;
-
-  const linesDiscountTotal = arraySum(cartLines.map(line => {
-    const { discountAllocations } = line;
-    return arraySum(discountAllocations, { pathToNumber: 'discountedAmount.amount' });
-  }));
-  const pointsEarningOriginalTotal = subtotal?.amount + linesDiscountTotal; // + shippingTotal?.amount;
-
-  const factor = spend / pointsEarningOriginalTotal;
-  const adjustedPointsTotal = Math.floor(pointsTotal * factor);
-
-  const debug = (
-    <Banner title="Debug">
-      <List>
-        <ListItem>We need to get points total * (spend / subtotal)</ListItem>
-        <ListItem>points total: sum of line items loyalty points metafield [+ points for shipping (not gettable)]</ListItem>
-        <ListItem>{ pointsTotal }</ListItem>
-        <ListItem>spend: total - gift card allocation</ListItem>
-        <ListItem>{ spend }</ListItem>
-        <ListItem>subtotal: subtotal + shipping</ListItem>
-        <ListItem>{ pointsEarningOriginalTotal }</ListItem>
-        <ListItem>Final points</ListItem>
-        <ListItem>{ adjustedPointsTotal }</ListItem>
-      </List>
-    </Banner>
-  );
+  // const debug = (
+  //   <Banner title="Debug">
+  //     <List>
+  //       <ListItem>We need to get points total * (spend / subtotal)</ListItem>
+  //       <ListItem>points total: sum of line items loyalty points metafield [+ points for shipping (not gettable)]</ListItem>
+  //       <ListItem>{ pointsTotal }</ListItem>
+  //       <ListItem>spend: total - gift card allocation</ListItem>
+  //       <ListItem>{ spend }</ListItem>
+  //       <ListItem>subtotal: subtotal + shipping</ListItem>
+  //       <ListItem>{ pointsEarningOriginalTotal }</ListItem>
+  //       <ListItem>Final points</ListItem>
+  //       <ListItem>{ adjustedPointsTotal }</ListItem>
+  //     </List>
+  //   </Banner>
+  // );
 
   if (!customer) {
     return (
