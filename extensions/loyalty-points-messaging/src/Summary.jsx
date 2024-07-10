@@ -70,14 +70,14 @@ function Extension() {
 
     if (!customer) {
       return (
-        <Text>
+        <Text size="small" appearance="accent">
           { translate('logged_out_message', { points: adjustedPointsTotal, log_in: loginLinkEl }) }
         </Text>
       );
     }
 
     return (
-      <Text>
+      <Text size="small" appearance="accent">
         { translate('logged_in_message', { points: adjustedPointsTotal }) }
       </Text>
     );
