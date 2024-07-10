@@ -66,14 +66,14 @@ function Extension() {
     return linePoints;
   }).filter(item => item));
 
-  const giftCardsTotal = arraySum(appliedGiftCards, 'amountUsed.amount');
+  const giftCardsTotal = arraySum(appliedGiftCards, { pathToNumber: 'amountUsed.amount' });
 
   const spend = total?.amount - giftCardsTotal;
 
   const linesDiscountTotal = arraySum(cartLines.map(line => {
     const { discountAllocations } = line;
-    return arraySum(discountAllocations, 'discountedAmount.amount');
-  });
+    return arraySum(discountAllocations, { pathToNumber: 'discountedAmount.amount' });
+  }));
   const pointsEarningOriginalTotal = subtotal?.amount + linesDiscountTotal; // + shippingTotal?.amount;
 
   const factor = spend / pointsEarningOriginalTotal;
