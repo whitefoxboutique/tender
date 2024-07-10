@@ -32,16 +32,26 @@ function Extension() {
   const { handle: marketHandle } = market;
   console.log('marketHandle', marketHandle);
 
-  let show = true;
+  /* Markets show logic */
+  const showMarkets = show_markets.split(',');
+  const hideMarkets = hide_markets.split(',');
 
   console.log(show_markets, hide_markets);
 
-  if (show_markets && !show_markets.includes(marketHandle)) {
-    show = false;
+  let show = true;
+
+  if (show_markets) {
+    const showMarkets = show_markets.split(',');
+    if (!showMarkets.includes(marketHandle)) {
+      show = false;
+    }
   }
 
-  if (hide_markets && hide_markets.includes(marketHandle)) {
-    show = false;
+  if (hide_markets) {
+    const hideMarkets = hide_markets.split(',');
+    if (!hideMarkets.includes(marketHandle)) {
+      show = false;
+    }
   }
 
   if (!show) {
