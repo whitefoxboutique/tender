@@ -34,7 +34,7 @@ function Extension() {
   const target = useTarget();
   const linePrice = target?.cost?.totalAmount?.amount;
   const lineFactor = linePrice / totalAmount?.amount;
-  console.log('lineFactor', lineFactor);
+  // console.log('lineFactor', lineFactor);
   const linePoints = Math.floor(adjustedPointsTotal * lineFactor);
 
   if (!linePoints) {
