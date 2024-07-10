@@ -18,6 +18,8 @@ import {
 
 const { gidToId, arraySum } = require('../../../utils');
 
+const { getPointsTotal } = require('./utils');
+
 export default reactExtension(
   'purchase.checkout.cart-line-list.render-after',
   () => <Extension />,
@@ -36,35 +38,7 @@ function Extension() {
   const { storefrontUrl } = shop;
   const loginLink = `${ storefrontUrl }/account/login`;
 
-  const pointsMetafields = metafields.filter(mf => {
-    const { target, metafield } = mf;
-    const { type } = target;
-    const { namespace, key } = metafield;
-    return type === 'variant' && namespace == 'loyalty' && key === 'points';
-  });
-
-  const variantIdToPointsMap = pointsMetafields.reduce((map, mf) => {
-    const { target, metafield } = mf;
-    const { id } = target;
-    const { value } = metafield;
-    map[id] = value;
-    return map;
-  }, {});
-
-  const pointsTotal = arraySum(cartLines.map(line => {
-    const variantGid = line?.merchandise?.id;
-    const variantId = gidToId(variantGid);
-
-    const { quantity } = line;
-
-    const itemPoints = variantIdToPointsMap[variantId];
-    if (!itemPoints) {
-      return null;
-    }
-
-    const linePoints = itemPoints * quantity;
-    return linePoints;
-  }).filter(item => item));
+  const pointsTotal = getPointsTotal(metafields, cartLines);
 
   const giftCardsTotal = arraySum(appliedGiftCards, { pathToNumber: 'amountUsed.amount' });
 
