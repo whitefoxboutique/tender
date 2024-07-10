@@ -1,10 +1,11 @@
-import { 
+import {
+  Banner,
   reactExtension,
-  Image,
   useSettings,
+  useLocalizationMarket,
+  Image,
   Style,
   View,
-  useLocalizationMarket,
 } from '@shopify/ui-extensions-react/checkout';
 
 export default reactExtension(
@@ -13,7 +14,19 @@ export default reactExtension(
 );
 
 function Extension() {
-  const { image_url_d, image_url_m, alt, show_markets, hide_markets } = useSettings();
+
+  const { 
+    title, 
+    text, 
+    status,
+
+    image_url_d,
+    image_url_m,
+    alt,
+
+    show_markets, 
+    hide_markets,
+  } = useSettings();
 
   const market = useLocalizationMarket();
   console.log(market);
@@ -33,6 +46,15 @@ function Extension() {
 
   if (!show) {
     return;
+  }
+
+  // Decide which block to show by whether an image is set.
+  if (!image_url_d) {
+    return (
+      <Banner title={ title } status={ status }>
+        { text }
+      </Banner>
+    );
   }
 
   return (

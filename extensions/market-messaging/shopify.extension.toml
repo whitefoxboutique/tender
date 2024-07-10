@@ -15,10 +15,7 @@ type = "ui_extension"
 # https://shopify.dev/docs/api/checkout-ui-extensions/unstable/extension-targets-overview
 
 [[extensions.targeting]]
-module = "./src/MMBanner.jsx"
-target = "purchase.checkout.block.render"
-[[extensions.targeting]]
-module = "./src/MMImage.jsx"
+module = "./src/Block.jsx"
 target = "purchase.checkout.block.render"
 
 [extensions.settings]
