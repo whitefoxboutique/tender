@@ -16,7 +16,7 @@ import {
   useAppliedGiftCards,
 } from '@shopify/ui-extensions-react/checkout';
 
-const { gidToId } = require('../../../utils');
+const { gidToId, arraySum } = require('../../../utils');
 
 export default reactExtension(
   'purchase.checkout.cart-line-list.render-after',
@@ -51,7 +51,7 @@ function Extension() {
     return map;
   }, {});
 
-  const pointsTotal = cartLines.reduce((total, line) => {
+  const pointsTotal = arraySum(cartLines.map(line => {
     const variantGid = line?.merchandise?.id;
     const variantId = gidToId(variantGid);
 
@@ -59,27 +59,21 @@ function Extension() {
 
     const itemPoints = variantIdToPointsMap[variantId];
     if (!itemPoints) {
-      return total;
+      return null;
     }
 
     const linePoints = itemPoints * quantity;
-    return total + linePoints;
-  }, 0);
+    return linePoints;
+  }).filter(item => item));
 
-  const giftCardsTotal = appliedGiftCards.reduce((total, gc) => total + gc?.amountUsed?.amount, 0);
+  const giftCardsTotal = arraySum(appliedGiftCards, 'amountUsed.amount');
 
   const spend = total?.amount - giftCardsTotal;
 
-  const linesDiscountTotal = cartLines.reduce((total, line) => {
+  const linesDiscountTotal = arraySum(cartLines.map(line => {
     const { discountAllocations } = line;
-
-    const lineDiscountsTotal = discountAllocations.reduce((totalDiscount, discount) => {
-      const { discountedAmount } = discount;
-      return totalDiscount + discountedAmount?.amount;
-    }, 0);
-
-    return total + lineDiscountsTotal;
-  }, 0);
+    return arraySum(discountAllocations, 'discountedAmount.amount');
+  });
   const pointsEarningOriginalTotal = subtotal?.amount + linesDiscountTotal; // + shippingTotal?.amount;
 
   const factor = spend / pointsEarningOriginalTotal;
