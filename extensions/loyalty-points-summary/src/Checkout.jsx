@@ -57,8 +57,13 @@ function Extension() {
 
     const { quantity } = line;
 
-    const points = variantIdToPointsMap[variantId] * quantity;
-    return total + points;
+    const itemPoints = variantIdToPointsMap[variantId];
+    if (!itemPoints) {
+      return total;
+    }
+
+    const linePoints = itemPoints * quantity;
+    return total + linePoints;
   }, 0);
 
   const giftCardsTotal = appliedGiftCards.reduce((total, gc) => total + gc?.amountUsed?.amount, 0);
