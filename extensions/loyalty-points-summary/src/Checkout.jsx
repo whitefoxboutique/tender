@@ -33,6 +33,8 @@ function Extension() {
   const shippingTotal = useTotalShippingAmount();
   const appliedGiftCards = useAppliedGiftCards();
 
+  console.log('cartLines', cartLines);
+
   const { storefrontUrl } = shop;
   const loginLink = `${ storefrontUrl }/account/login`;
 
@@ -71,7 +73,17 @@ function Extension() {
   const spend = total?.amount - giftCardsTotal;
 
   // const pointsEarningOriginalTotal = subtotal?.amount + shippingTotal?.amount;
-  const pointsEarningOriginalTotal = subtotal?.amount;
+  const linesDiscountTotal = cartLines.reduce((total, line) => {
+    const { discountAllocations } = line;
+
+    const lineDiscountsTotal = discountAllocations.reduce((totalDiscount, discount) => {
+      const { discountedAmount } = discount;
+      return totalDiscount + discountedAmount?.amount;
+    }, 0);
+
+    return total + lineDiscountsTotal;
+  }, 0);
+  const pointsEarningOriginalTotal = subtotal?.amount + linesDiscountTotal;
 
   const factor = spend / pointsEarningOriginalTotal;
   const adjustedPointsTotal = Math.floor(pointsTotal * factor);
@@ -85,7 +97,7 @@ function Extension() {
         <ListItem>spend: total - gift card allocation</ListItem>
         <ListItem>{ spend }</ListItem>
         <ListItem>subtotal: subtotal + shipping</ListItem>
-        <ListItem>{ pointsEarningOriginalTotal }</ListItem>
+        <ListItem>{ subtotal?.amount } vs { pointsEarningOriginalTotal }</ListItem>
         <ListItem>Final points</ListItem>
         <ListItem>{ adjustedPointsTotal }</ListItem>
       </List>
@@ -95,6 +107,7 @@ function Extension() {
   if (!customer) {
     return (
       <Text>
+        { debug }
         <Link to={ loginLink }>Log in</Link> to earn { adjustedPointsTotal } points on this order!
       </Text>
     );
