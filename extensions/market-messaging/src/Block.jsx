@@ -29,8 +29,8 @@ function Extension() {
   } = useSettings();
 
   const market = useLocalizationMarket();
-  console.log(market);
   const { handle: marketHandle } = market;
+  console.log('marketHandle', marketHandle);
 
   let show = true;
 
