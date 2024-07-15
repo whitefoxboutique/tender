@@ -64,19 +64,33 @@ function Extension() {
     return;
   }
 
+  let loggedOutMessage;
+  try {
+    loggedOutMessage = translate('logged_out_message', { points: adjustedPointsTotal, log_in: loginLinkEl });
+  } catch(err) {
+    loggedOutMessage = translate('logged_out_message', { log_in: loginLinkEl });
+  }
+
+  let loggedInMessage;
+  try {
+    loggedInMessage = translate('logged_in_message', { points: adjustedPointsTotal });
+  } catch(err) {
+    loggedInMessage = translate('logged_in_message');
+  }
+
   try {
 
     if (!customer) {
       return (
-          { translate('logged_out_message', { points: adjustedPointsTotal, log_in: loginLinkEl }) }
         <Text size="small">
+          { loggedOutMessage }
         </Text>
       );
     }
 
     return (
-        { translate('logged_in_message', { points: adjustedPointsTotal }) }
       <Text size="small">
+        { loggedInMessage }
       </Text>
     );
 
