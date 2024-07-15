@@ -57,7 +57,7 @@ function Extension() {
   //   </Banner>
   // );
 
-  const loginLinkEl = <Link to={ loginLink }>{ translate('log_in') }</Link>;
+  const loginLinkEl = <Link to={ loginLink } appearance="monochrome">{ translate('log_in') }</Link>;
 
   console.log('adjustedPointsTotal', adjustedPointsTotal);
   if (!adjustedPointsTotal) {
@@ -68,15 +68,15 @@ function Extension() {
 
     if (!customer) {
       return (
-        <Text size="small" appearance="accent">
           { translate('logged_out_message', { points: adjustedPointsTotal, log_in: loginLinkEl }) }
+        <Text size="small">
         </Text>
       );
     }
 
     return (
-      <Text size="small" appearance="accent">
         { translate('logged_in_message', { points: adjustedPointsTotal }) }
+      <Text size="small">
       </Text>
     );
 

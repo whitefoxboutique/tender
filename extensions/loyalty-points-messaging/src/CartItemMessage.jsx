@@ -51,14 +51,14 @@ function Extension() {
 
     if (!customer) {
       return (
-        <Text size="small" appearance="accent">
+        <Text size="small">
           { translate('logged_out_cart_item_message', { points: linePoints }) }
         </Text>
       );
     }
 
     return (
-      <Text size="small" appearance="accent">
+      <Text size="small">
         { translate('logged_in_cart_item_message', { points: linePoints }) }
       </Text>
     );
