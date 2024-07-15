@@ -17,8 +17,6 @@ import {
   useAppliedGiftCards,
 } from '@shopify/ui-extensions-react/checkout';
 
-const { gidToId, arraySum } = require('../../../utils');
-
 const { getAdjustedPointsTotal } = require('./utils');
 
 export default reactExtension(
