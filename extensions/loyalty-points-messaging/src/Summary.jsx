@@ -59,7 +59,7 @@ function Extension() {
 
   const loginLinkEl = <Link to={ loginLink } appearance="monochrome">{ translate('log_in') }</Link>;
 
-  console.log('adjustedPointsTotal', adjustedPointsTotal);
+  // console.log('adjustedPointsTotal', adjustedPointsTotal);
   if (!adjustedPointsTotal) {
     return;
   }
@@ -72,15 +72,20 @@ function Extension() {
   }
 
   let loggedInMessage;
-  try {
-    loggedInMessage = translate('logged_in_message', { points: adjustedPointsTotal });
-  } catch(err) {
-    loggedInMessage = translate('logged_in_message');
-  }
+  // try {
+  //   loggedInMessage = translate('logged_in_message', { points: adjustedPointsTotal });
+  // } catch(err) {
+  //   loggedInMessage = translate('logged_in_message');
+  // }
 
   try {
 
     if (!customer) {
+
+      if (!loggedOutMessage) {
+        return;
+      }
+
       return (
         <Text size="small">
           { loggedOutMessage }
@@ -88,7 +93,12 @@ function Extension() {
       );
     }
 
+    if (!loggedInMessage) {
+      return;
+    }
+
     return (
+
       <Text size="small">
         { loggedInMessage }
       </Text>

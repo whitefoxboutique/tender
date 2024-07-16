@@ -42,6 +42,8 @@ function Extension() {
   // console.log('lineFactor', lineFactor);
   const linePoints = Math.floor(adjustedPointsTotal * lineFactor);
 
+  console.log(metafields, adjustedPointsTotal, lineFactor, linePoints);
+
   if (!linePoints) {
     return;
     // return <SkeletonText inlineSize="large"></SkeletonText>;
@@ -50,11 +52,12 @@ function Extension() {
   try {
 
     if (!customer) {
-      return (
-        <Text size="small">
-          { translate('logged_out_cart_item_message', { points: linePoints }) }
-        </Text>
-      );
+      // return (
+      //   <Text size="small">
+      //     { translate('logged_out_cart_item_message', { points: linePoints }) }
+      //   </Text>
+      // );
+      return;
     }
 
     return (
