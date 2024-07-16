@@ -19,9 +19,9 @@ type = "ui_extension"
 module = "./src/Checkout.jsx"
 target = "purchase.checkout.contact.render-after"
 
-[extensions.capabilities]
-# Gives your extension access to directly query Shopify’s storefront API.
-# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#api-access
+[extensions.capabilities.collect_buyer_consent]
+sms_marketing = true
+customer_privacy = true
 api_access = true
 
 # Gives your extension access to make external network calls, using the
