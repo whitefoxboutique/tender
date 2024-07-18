@@ -21,7 +21,7 @@ function Extension() {
       <ConsentCheckbox policy="sms-marketing">
         Text me with news and offers
       </ConsentCheckbox>
-      <ConsentPhoneField label="" policy="sms-marketing">
+      <ConsentPhoneField label="Phone" policy="sms-marketing" autocomplete="true">
       </ConsentPhoneField>
     </Banner>
   );  
