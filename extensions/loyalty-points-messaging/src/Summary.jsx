@@ -17,7 +17,7 @@ import {
   useAppliedGiftCards,
 } from '@shopify/ui-extensions-react/checkout';
 
-const { getAdjustedPointsTotal } = require('./utils');
+const { getAdjustedPointsTotal } = require('../../../utils_loyalty');
 
 export default reactExtension(
   'purchase.checkout.cart-line-list.render-after',
@@ -72,11 +72,11 @@ function Extension() {
   }
 
   let loggedInMessage;
-  // try {
-  //   loggedInMessage = translate('logged_in_message', { points: adjustedPointsTotal });
-  // } catch(err) {
-  //   loggedInMessage = translate('logged_in_message');
-  // }
+  try {
+    loggedInMessage = translate('logged_in_message', { points: adjustedPointsTotal });
+  } catch(err) {
+    loggedInMessage = translate('logged_in_message');
+  }
 
   try {
 

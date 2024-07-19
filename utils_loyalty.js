@@ -1,4 +1,4 @@
-const { gidToId, arraySum } = require('../../../utils');
+const { gidToId, arraySum } = require('./utils');
 
 // These params should be straight from the API, no funny business.
 const getPointsTotal = (metafields, cartLines) => {

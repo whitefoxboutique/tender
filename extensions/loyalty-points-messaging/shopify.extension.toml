@@ -10,7 +10,6 @@ name = "Loyalty Points Messaging"
 handle = "loyalty-points-messaging"
 type = "ui_extension"
 
-
 # Controls where in Shopify your extension will be injected,
 # and the file that contains your extension’s source code. Learn more:
 # https://shopify.dev/docs/api/checkout-ui-extensions/unstable/extension-targets-overview
@@ -18,9 +17,6 @@ type = "ui_extension"
 [[extensions.targeting]]
 module = "./src/Summary.jsx"
 target = "purchase.checkout.cart-line-list.render-after"
-[[extensions.targeting]]
-module = "./src/CartItemMessage.jsx"
-target = "purchase.checkout.cart-line-item.render-after"
 
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.

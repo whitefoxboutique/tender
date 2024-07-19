@@ -1,0 +1,16 @@
+# The version of APIs your extension will receive. Learn more:
+# https://shopify.dev/docs/api/usage/versioning
+api_version = "2024-07"
+
+[[extensions]]
+name = "Loyalty: Cart Items Message"
+handle = "loyalty-cart-items-message"
+type = "ui_extension"
+
+[[extensions.targeting]]
+module = "./src/CartItemMessage.jsx"
+target = "purchase.checkout.cart-line-item.render-after"
+
+[[extensions.metafields]]
+namespace = "loyalty"
+key = "points"
