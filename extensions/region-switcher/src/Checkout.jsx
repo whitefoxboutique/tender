@@ -1,5 +1,6 @@
 import {
   reactExtension,
+  useCartLines,
   Link,
 } from "@shopify/ui-extensions-react/checkout";
 
@@ -34,11 +35,21 @@ export default reactExtension('purchase.checkout.footer.render-after', () => (
 ));
 
 function Extension() {
+
+  const cartLines = useCartLines();
+  console.log(cartLines);
+
+  const cartParams = {
+    items: cartLines.map(line => `${ line.merchandise.title }:${ line.quantity }`).join(','),
+    // discount
+  };
+
   return (
     <>
       { SWITCHER_OPTIONS.map(option => {
-        const { name, domain, params } = option;
-        const url = `https://${ domain }${ params ? new URLSearchParams(params).toString() : '' }`;
+        const { name, domain, params = {} } = option;
+        const paramsWithCart = { ...params, ...cartParams };
+        const url = `https://${ domain }?${ new URLSearchParams(paramsWithCart).toString() }`;
         return <Link to={ url }>{ name }</Link>;
       }) }
     </>
