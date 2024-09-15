@@ -89,18 +89,17 @@ function Extension() {
   }, [handles]); // This effect runs whenever handles changes
 
   const cartString = permalinkItems.map(({ handle, quantity, selectedOptions }) => `${ handle }:${ JSON.stringify(selectedOptions) }:${ quantity }`).join(',');
-  const encodedCart = encodeURIComponent(btoa(cartString));
+  const encodedCart = btoa(cartString);
   const permalinkParam = {
     permalink: encodedCart,
   };
+
+  // atob(decodeURIComponent('dGhlLXZpZGVvZ3JhcGhlci1zbm93Ym9hcmQ6W3sibmFtZSI6IlRpdGxlIiwidmFsdWUiOiJEZWZhdWx0IFRpdGxlIn1dOjE%3D'));
 
   return (
     <>
       { SWITCHER_OPTIONS.map(option => {
         const { name, domain, params = {} } = option;
-
-        console.log(atob(decodeURIComponent(permalinkParam.permalink)));
-
         const paramsWithCart = { ...params, ...permalinkParam };
         const url = `https://${ domain }?${ new URLSearchParams(paramsWithCart).toString() }`;
         return <Link key={ name } to={ url }>{ name }</Link>;
