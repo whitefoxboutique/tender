@@ -42,7 +42,7 @@ function Extension() {
   const { query } = useApi();
   const cartLines = useCartLines();
   const [handles, setHandles] = useState([]);
-  const [permalink, setPermalink] = useState({});
+  const [permalinkItems, setPermalinkItems] = useState([]);
 
   useEffect(() => {
     async function fetchStorefrontData() {
@@ -63,13 +63,20 @@ function Extension() {
 
       setHandles(handles);
 
-      const cartPermalink = Object.fromEntries(cartLines.map((line, i) => {
-        const { quantity } = line;
-        const handle = handles[i];
-        return [handle, quantity];
-      }));
+      console.log('cartLines', cartLines);
 
-      setPermalink(cartPermalink);
+      const cartPermalinkItems = cartLines.map((line, i) => {
+        const { quantity, merchandise } = line;
+        const { selectedOptions } = merchandise;
+        const handle = handles[i];
+        return {
+          handle, 
+          quantity,
+          selectedOptions,
+        };
+      });
+
+      setPermalinkItems(cartPermalinkItems);
     }
 
     if (cartLines.length > 0) {
@@ -78,17 +85,22 @@ function Extension() {
   }, [cartLines, query]);
 
    useEffect(() => {
-    console.log('Updated handles:', handles, permalink);
+    console.log('Updated handles:', handles, permalinkItems);
   }, [handles]); // This effect runs whenever handles changes
 
+  const cartString = permalinkItems.map(({ handle, quantity, selectedOptions }) => `${ handle }:${ JSON.stringify(selectedOptions) }:${ quantity }`).join(',');
+  const encodedCart = encodeURIComponent(btoa(cartString));
   const permalinkParam = {
-    permalink: Object.entries(permalink).map(([handle, quantity]) => `${ handle }:${ quantity }`).join(','),
+    permalink: encodedCart,
   };
 
   return (
     <>
       { SWITCHER_OPTIONS.map(option => {
         const { name, domain, params = {} } = option;
+
+        console.log(atob(decodeURIComponent(permalinkParam.permalink)));
+
         const paramsWithCart = { ...params, ...permalinkParam };
         const url = `https://${ domain }?${ new URLSearchParams(paramsWithCart).toString() }`;
         return <Link key={ name } to={ url }>{ name }</Link>;
