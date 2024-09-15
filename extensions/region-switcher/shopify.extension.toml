@@ -45,6 +45,7 @@ api_access = true
 # https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#settings-definition
 
 [extensions.settings]
+
 [[extensions.settings.fields]]
 key = "store"
 type = "single_line_text_field"
@@ -53,4 +54,10 @@ description = "Decides which options are clickable and which are just display"
 [[extensions.settings.fields.validations]]
 name = "choices"
 value = "[\"AU\", \"US\", \"UK\"]"
+
+[[extensions.settings.fields]]
+key = "title"
+type = "single_line_text_field"
+name = "Title"
+default = "Can't ship to your address? Switch to your region below:"
 

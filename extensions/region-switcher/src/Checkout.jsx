@@ -10,6 +10,7 @@ import {
   BlockStack,
   Heading,
   View,
+  Text,
 } from "@shopify/ui-extensions-react/checkout";
 
 import { useEffect, useState } from 'react';
@@ -63,7 +64,8 @@ function Extension() {
   const cartLines = useCartLines();
   const [handles, setHandles] = useState([]);
   const [permalinkItems, setPermalinkItems] = useState([]);
-  const { store: settingsStore } = useSettings();
+  const { store: settingsStore, title } = useSettings();
+  // const { store: settingsStore = 'AU', title = `Can't ship to your address? Switch to your region below:` } = useSettings(); // testing
 
   useEffect(() => {
     async function fetchStorefrontData() {
@@ -119,31 +121,33 @@ function Extension() {
 
   return (
     // <InlineLayout blockAlignment="center" spacing="base" columns={ SWITCHER_OPTIONS.length } minInlineSize="fill">
-    <InlineLayout spacing="loose" minBlockSize={ `${ 100 / SWITCHER_OPTIONS.length }%` } blockAlignment="start">
-      { SWITCHER_OPTIONS.map(option => {
-        const { name, domain, icon, store, params = {} } = option;
-        const paramsWithCart = { ...params, ...permalinkParam };
-        const url = `https://${ domain }?${ new URLSearchParams(paramsWithCart).toString() }`;
+    <View padding={ ['loose', 'none'] }>
+      { title && <Heading inlineAlignment="center">{ title }</Heading> }
+      <InlineLayout spacing="loose" minBlockSize={ `${ 100 / SWITCHER_OPTIONS.length }%` } blockAlignment="start">
+        { SWITCHER_OPTIONS.map(option => {
+          const { name, domain, icon, store, params = {} } = option;
+          const paramsWithCart = { ...params, ...permalinkParam };
+          const url = `https://${ domain }?${ new URLSearchParams(paramsWithCart).toString() }`;
 
-        const current = store === settingsStore;
-        // const current = store === 'AU'; // testing
+          const current = store === settingsStore;
 
-        if (current) {
-          return <View opacity="50">
+          if (current) {
+            return <View opacity="50">
+              <BlockStack padding={ ['base', 'none'] } spacing="tight">
+                <Image source={ icon }></Image>
+                <TextBlock inlineAlignment="center" size="small" accessibilityRole="navigation" level="3">{ name }</TextBlock>
+              </BlockStack>
+            </View>;
+          }
+
+          return <Pressable to={ url }>
             <BlockStack padding={ ['base', 'none'] } spacing="tight">
               <Image source={ icon }></Image>
-              <Heading inlineAlignment="center" size="extraSmall" appearance="subdued" accessibilityRole="navigation">{ name }</Heading>
+              <TextBlock inlineAlignment="center" size="small" accessibilityRole="navigation" level="3">{ name }</TextBlock>
             </BlockStack>
-          </View>;
-        }
-
-        return <Pressable to={ url }>
-          <BlockStack padding={ ['base', 'none'] } spacing="tight">
-            <Image source={ icon }></Image>
-            <Heading inlineAlignment="center" size="extraSmall" appearance="subdued" accessibilityRole="navigation">{ name }</Heading>
-          </BlockStack>
-        </Pressable>;
-      }) }
-    </InlineLayout>
+          </Pressable>;
+        }) }
+      </InlineLayout>
+    </View>
   );
 }
