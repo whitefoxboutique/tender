@@ -6,6 +6,7 @@ import {
   InlineLayout,
   Pressable,
   TextBlock,
+  BlockStack,
 } from "@shopify/ui-extensions-react/checkout";
 
 import { useEffect, useState } from 'react';
@@ -112,8 +113,10 @@ function Extension() {
         const paramsWithCart = { ...params, ...permalinkParam };
         const url = `https://${ domain }?${ new URLSearchParams(paramsWithCart).toString() }`;
         return <Pressable to={ url }>
-          <Image source={ icon }></Image>
-          <TextBlock inlineAlignment="center" size="small">{ name }</TextBlock>
+          <BlockStack padding={ ['base', 'none'] } spacing="tight">
+            <Image source={ icon }></Image>
+            <TextBlock inlineAlignment="center" size="extraSmall" appearance="subdued">{ name }</TextBlock>
+          </BlockStack>
         </Pressable>;
       }) }
     </InlineLayout>
