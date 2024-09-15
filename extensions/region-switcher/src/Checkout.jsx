@@ -1,6 +1,7 @@
 import {
   reactExtension,
   useCartLines,
+  useApi,
   Link,
 } from "@shopify/ui-extensions-react/checkout";
 
@@ -34,10 +35,29 @@ export default reactExtension('purchase.checkout.footer.render-after', () => (
   <Extension />
 ));
 
-function Extension() {
+async function Extension() {
+
+  const { query } = useApi();
+
+  const storefrontApiResponse = await query(
+    `query ($productId: ID!) {
+      product(id: $productId) {
+        handle
+      }
+    }`,
+    {
+      variables: {
+        productId: 'gid://shopify/Product/8442222215409',
+      },
+    },
+  );
+  console.log(storefrontApiResponse);
+
+  const { data, errors } = storefrontApiResponse;
+  console.log('data, errors', data, errors);
 
   const cartLines = useCartLines();
-  console.log(cartLines);
+  console.log('cartLines', cartLines);
 
   const cartParams = {
     items: cartLines.map(line => `${ line.merchandise.title }:${ line.quantity }`).join(','),
