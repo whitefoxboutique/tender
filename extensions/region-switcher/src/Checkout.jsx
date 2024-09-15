@@ -91,7 +91,7 @@ function Extension() {
         const { name, domain, params = {} } = option;
         const paramsWithCart = { ...params, ...permalinkParam };
         const url = `https://${ domain }?${ new URLSearchParams(paramsWithCart).toString() }`;
-        return <Link to={ url }>{ name }</Link>;
+        return <Link key={ name } to={ url }>{ name }</Link>;
       }) }
     </>
   );
