@@ -39,7 +39,10 @@ async function Extension() {
 
   const { query } = useApi();
 
-  const storefrontApiResponse = await query(
+  const cartLines = useCartLines();
+  console.log('cartLines', cartLines);
+
+  const storefrontApiResponses = await Promise.all(cartLines.map(l => query(
     `query ($productId: ID!) {
       product(id: $productId) {
         handle
@@ -47,17 +50,16 @@ async function Extension() {
     }`,
     {
       variables: {
-        productId: 'gid://shopify/Product/8442222215409',
+        productId: l.merchandise.product.id,
       },
     },
-  );
-  console.log(storefrontApiResponse);
+  ));
+  console.log('storefrontApiResponses', storefrontApiResponses);
 
-  const { data, errors } = storefrontApiResponse;
-  console.log('data, errors', data, errors);
+  // const { data, errors } = storefrontApiResponse;
+  // console.log('data, errors', data, errors);
 
-  const cartLines = useCartLines();
-  console.log('cartLines', cartLines);
+  
 
   const cartParams = {
     items: cartLines.map(line => `${ line.merchandise.title }:${ line.quantity }`).join(','),
