@@ -4,6 +4,7 @@ import {
   useApi,
   Link,
   Image,
+  InlineLayout,
 } from "@shopify/ui-extensions-react/checkout";
 
 import { useEffect, useState } from 'react';
@@ -98,7 +99,7 @@ function Extension() {
   // atob(decodeURIComponent('dGhlLXZpZGVvZ3JhcGhlci1zbm93Ym9hcmQ6W3sibmFtZSI6IlRpdGxlIiwidmFsdWUiOiJEZWZhdWx0IFRpdGxlIn1dOjE%3D'));
 
   return (
-    <>
+    <InlineLayout blockAlignment="center">
       { SWITCHER_OPTIONS.map(option => {
         const { name, domain, params = {} } = option;
         const paramsWithCart = { ...params, ...permalinkParam };
@@ -108,6 +109,6 @@ function Extension() {
           { name }
         </Link>;
       }) }
-    </>
+    </InlineLayout>
   );
 }
