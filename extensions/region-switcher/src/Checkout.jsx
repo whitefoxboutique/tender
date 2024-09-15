@@ -2,10 +2,9 @@ import {
   reactExtension,
   useCartLines,
   useApi,
-  Link,
   Image,
   InlineLayout,
-  View,
+  Pressable,
   TextBlock,
 } from "@shopify/ui-extensions-react/checkout";
 
@@ -112,12 +111,10 @@ function Extension() {
         const { name, domain, icon, params = {} } = option;
         const paramsWithCart = { ...params, ...permalinkParam };
         const url = `https://${ domain }?${ new URLSearchParams(paramsWithCart).toString() }`;
-        return <View>
-          <Link key={ name } to={ url }>
-            <Image source={ icon }></Image>
-            <TextBlock inlineAlignment="center" size="small">{ name }</TextBlock>
-          </Link>
-        </View>;
+        return <Pressable to={ url }>
+          <Image source={ icon }></Image>
+          <TextBlock inlineAlignment="center" size="small">{ name }</TextBlock>
+        </Pressable>;
       }) }
     </InlineLayout>
   );
