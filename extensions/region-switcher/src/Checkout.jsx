@@ -125,8 +125,8 @@ function Extension() {
         const paramsWithCart = { ...params, ...permalinkParam };
         const url = `https://${ domain }?${ new URLSearchParams(paramsWithCart).toString() }`;
 
-        // const current = store === settingsStore;
-        const current = store === 'AU';
+        const current = store === settingsStore;
+        // const current = store === 'AU'; // testing
 
         if (current) {
           return <View opacity="50">
