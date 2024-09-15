@@ -7,6 +7,7 @@ import {
   Pressable,
   TextBlock,
   BlockStack,
+  Heading,
 } from "@shopify/ui-extensions-react/checkout";
 
 import { useEffect, useState } from 'react';
@@ -115,7 +116,7 @@ function Extension() {
         return <Pressable to={ url }>
           <BlockStack padding={ ['base', 'none'] } spacing="tight">
             <Image source={ icon }></Image>
-            <TextBlock inlineAlignment="center" size="extraSmall" appearance="subdued">{ name }</TextBlock>
+            <Heading inlineAlignment="center" size="extraSmall" appearance="subdued" accessibilityRole="navigation">{ name }</Heading>
           </BlockStack>
         </Pressable>;
       }) }
