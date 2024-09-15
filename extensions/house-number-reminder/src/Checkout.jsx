@@ -18,7 +18,7 @@ function Extension() {
 
   const { address1 } = shippingAddress;
   
-  console.log('address1', address1);
+  // console.log('address1', address1);
 
   if (!address1) {
     // hasn't been entered yet

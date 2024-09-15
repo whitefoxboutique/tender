@@ -35,7 +35,7 @@ function Extension() {
   console.log('marketHandle', marketHandle);
 
   /* Markets show logic */
-  console.log(show_markets, hide_markets);
+  // console.log(show_markets, hide_markets);
 
   let show = true;
 
