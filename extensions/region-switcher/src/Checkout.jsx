@@ -5,6 +5,8 @@ import {
   Link,
 } from "@shopify/ui-extensions-react/checkout";
 
+import { useEffect, useState } from 'react';
+
 const SWITCHER_OPTIONS = [
   {
     name: 'AUS & NZ',
@@ -35,42 +37,59 @@ export default reactExtension('purchase.checkout.footer.render-after', () => (
   <Extension />
 ));
 
-async function Extension() {
+function Extension() {
 
   const { query } = useApi();
-
   const cartLines = useCartLines();
-  console.log('cartLines', cartLines);
+  const [handles, setHandles] = useState([]);
+  const [permalink, setPermalink] = useState({});
 
-  const storefrontApiResponses = await Promise.all(cartLines.map(l => query(
-    `query ($productId: ID!) {
-      product(id: $productId) {
-        handle
-      }
-    }`,
-    {
-      variables: {
-        productId: l.merchandise.product.id,
-      },
-    },
-  ));
-  console.log('storefrontApiResponses', storefrontApiResponses);
+  useEffect(() => {
+    async function fetchStorefrontData() {
+      const responses = await Promise.all(cartLines.map(l => query(
+        `query ($productId: ID!) {
+          product(id: $productId) {
+            handle
+          }
+        }`,
+        {
+          variables: {
+            productId: l.merchandise.product.id,
+          },
+        },
+      )));
 
-  // const { data, errors } = storefrontApiResponse;
-  // console.log('data, errors', data, errors);
+      const handles = responses.map(r => r?.data?.product?.handle);
 
-  
+      setHandles(handles);
 
-  const cartParams = {
-    items: cartLines.map(line => `${ line.merchandise.title }:${ line.quantity }`).join(','),
-    // discount
+      const cartPermalink = Object.fromEntries(cartLines.map((line, i) => {
+        const { quantity } = line;
+        const handle = handles[i];
+        return [handle, quantity];
+      }));
+
+      setPermalink(cartPermalink);
+    }
+
+    if (cartLines.length > 0) {
+      fetchStorefrontData();
+    }
+  }, [cartLines, query]);
+
+   useEffect(() => {
+    console.log('Updated handles:', handles, permalink);
+  }, [handles]); // This effect runs whenever handles changes
+
+  const permalinkParam = {
+    permalink: Object.entries(permalink).map(([handle, quantity]) => `${ handle }:${ quantity }`).join(','),
   };
 
   return (
     <>
       { SWITCHER_OPTIONS.map(option => {
         const { name, domain, params = {} } = option;
-        const paramsWithCart = { ...params, ...cartParams };
+        const paramsWithCart = { ...params, ...permalinkParam };
         const url = `https://${ domain }?${ new URLSearchParams(paramsWithCart).toString() }`;
         return <Link to={ url }>{ name }</Link>;
       }) }
