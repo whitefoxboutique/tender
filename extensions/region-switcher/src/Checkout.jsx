@@ -111,7 +111,7 @@ function Extension() {
     console.log('Updated handles:', handles, permalinkItems);
   }, [handles]); // This effect runs whenever handles changes
 
-  const cartString = permalinkItems.map(({ handle, quantity, selectedOptions }) => `${ handle }:${ JSON.stringify(selectedOptions) }:${ quantity }`).join(',');
+  const cartString = permalinkItems.map(({ handle, quantity, selectedOptions }) => `${ handle }|${ JSON.stringify(selectedOptions) }|${ quantity }`).join('||');
   const encodedCart = btoa(cartString);
   const permalinkParam = {
     permalink: encodedCart,
