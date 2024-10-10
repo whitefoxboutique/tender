@@ -123,7 +123,7 @@ function Extension() {
     // <InlineLayout blockAlignment="center" spacing="base" columns={ SWITCHER_OPTIONS.length } minInlineSize="fill">
     <View padding={ ['loose', 'none'] }>
       { title && <Heading inlineAlignment="center">{ title }</Heading> }
-      <InlineLayout spacing="loose" minBlockSize={ `${ 100 / SWITCHER_OPTIONS.length }%` } blockAlignment="start">
+      <InlineLayout spacing="loose" minBlockSize={ `${ 100 / SWITCHER_OPTIONS.length }%` } blockAlignment="start" columns="3fr">
         { SWITCHER_OPTIONS.map(option => {
           const { name, domain, icon, store, params = {} } = option;
           const paramsWithCart = { ...params, ...permalinkParam };
