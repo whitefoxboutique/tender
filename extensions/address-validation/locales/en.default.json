@@ -1,5 +1,5 @@
 {
-  "tooLongErrorMessage": "Please make your address a lil bit shorter. <3",
+  "tooLongErrorMessage": "Please edit your address to be within the limits.",
   "address1IsTooLong": "Address can only be 40 characters long.",
   "address2IsTooLong": "Address 2 can only be 40 characters long.",
   "companyIsTooLong": "Company can only be 40 characters long.",
