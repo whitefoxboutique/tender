@@ -1,5 +1,7 @@
 {
-  "welcome": "Welcome to the {{target}} extension!",
-  "iWouldLikeAFreeGiftWithMyOrder": "I would like to receive a free gift with my order",
-  "attributeChangesAreNotSupported": "Attribute changes are not supported in this checkout"
+  "tooLongErrorMessage": "Please make your address a lil bit shorter. <3",
+  "address1IsTooLong": "Address can only be 40 characters long.",
+  "address2IsTooLong": "Address 2 can only be 40 characters long.",
+  "companyIsTooLong": "Company can only be 40 characters long.",
+  "cityIsTooLong": "City can only be 20 characters long."
 }
