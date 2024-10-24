@@ -1,4 +1,7 @@
 {
   "tooLongErrorMessage": "Our shipping company has max character limits - please edit your address.",
-  "address1IsTooLong": "Address can only be 40 characters long - please adjust."
+  "address1IsTooLong": "Address can only be 40 characters long.",
+  "address2IsTooLong": "Address 2 can only be 40 characters long.",
+  "companyIsTooLong": "Company can only be 40 characters long.",
+  "cityIsTooLong": "City can only be 20 characters long."
 }
