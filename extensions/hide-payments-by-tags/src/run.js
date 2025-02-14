@@ -19,19 +19,15 @@ export function run(input) {
 
   const operations = [];
 
-  console.log("itemsWithTag", itemsWithTag);
-  console.log("configuration.paymentMethods", configuration.paymentMethods);
-
   for (const paymentMethod of configuration.paymentMethods) {
+    const nameDowncased = paymentMethod.toLowerCase();
     const hidePaymentMethod = input.paymentMethods.find((method) =>
-      method.name.includes(paymentMethod)
+      method.name.toLowerCase().includes(nameDowncased)
     );
 
     if (!hidePaymentMethod || !itemsWithTag) {
       continue;
     }
-
-    console.log(hidePaymentMethod.id);
 
     operations.push({
       hide: {
@@ -39,8 +35,6 @@ export function run(input) {
       },
     });
   }
-
-  console.log("operations", operations);
 
   if (operations.length === 0) {
     return NO_CHANGES;
