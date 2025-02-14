@@ -1,0 +1,25 @@
+api_version = "2025-01"
+
+[[extensions]]
+name = "Hide Payments By Tags"
+handle = "hide-payments-by-tags"
+type = "function"
+
+description = "t:description"
+
+[[extensions.targeting]]
+target = "purchase.payment-customization.run"
+input_query = "src/run.graphql"
+export = "run"
+
+[extensions.build]
+command = ""
+path = "dist/function.wasm"
+
+[extensions.ui.paths]
+create = "/"
+details = "/"
+
+[extensions.input.variables]
+namespace = "hide-payments-by-tags"
+key = "function-configuration"

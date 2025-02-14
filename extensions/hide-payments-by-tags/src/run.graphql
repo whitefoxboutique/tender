@@ -1,0 +1,23 @@
+query RunInput($tagList: [String!]) {
+  cart {
+    lines {
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          product {
+            hasAnyTag(tags: $tagList)
+          }
+        }
+      }
+    }
+  }
+  paymentMethods {
+    id
+    name
+  }
+  paymentCustomization {
+    metafield(namespace: "hide-payments-by-tags", key: "function-configuration") {
+      value
+    }
+  }
+}

@@ -1,0 +1,18 @@
+mutation {
+  metafieldsSet(metafields: [
+    {
+      ownerId: "gid://shopify/PaymentCustomization/28344354"
+      namespace: "hide-payments-by-tags"
+      key: "function-configuration"
+      value: "{ \"paymentMethods\": [\"Cash on Delivery\", \"Afterpay\"], \"tagList\": [\"hide_afterpay\"] }"
+      type: "json"
+    }
+  ]) {
+    metafields {
+      id
+    }
+    userErrors {
+      message
+    }
+  }
+}
