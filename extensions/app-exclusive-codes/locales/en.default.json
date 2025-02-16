@@ -1,0 +1,4 @@
+{
+  "error_description": "The following code: {{ code }} is only available for our mobile app.",
+  "error_title": "Unable to apply code"
+}
