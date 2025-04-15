@@ -11,6 +11,8 @@ import {
   Heading,
   View,
   Text,
+  Style,
+  Grid,
 } from "@shopify/ui-extensions-react/checkout";
 
 import { useEffect, useState } from 'react';
@@ -128,9 +130,20 @@ function Extension() {
 
   return (
     // <InlineLayout blockAlignment="center" spacing="base" columns={ SWITCHER_OPTIONS.length } minInlineSize="fill">
-    <View padding={ ['loose', 'none'] }>
+    <View padding={ ['loose', 'none'] } inlineAlignment="center">
       { title && <Heading inlineAlignment="center">{ title }</Heading> }
-      <InlineLayout spacing="loose" minBlockSize={ `${ 100 / SWITCHER_OPTIONS.length }%` } blockAlignment="start" columns="3fr">
+      ddf
+      <Grid
+        // columns={['3fr', '3fr', '3fr']}
+        columns={ 
+          Style
+            .default(['3fr', '3fr', '3fr'])
+            .when({
+              viewportInlineSize: { min: 'medium' }
+            }, SWITCHER_OPTIONS.map(i => `${ SWITCHER_OPTIONS.length }fr`))
+        }
+        spacing="loose"
+      >
         { SWITCHER_OPTIONS.map(option => {
           const { name, domain, icon, store, params = {} } = option;
           const paramsWithCart = { ...params, ...permalinkParam };
@@ -139,7 +152,7 @@ function Extension() {
           const current = store === settingsStore;
 
           if (current) {
-            return <View opacity="50">
+            return <View opacity="50" minInlineSize={"30%"}>
               <BlockStack padding={ ['base', 'none'] } spacing="tight">
                 <Image source={ icon }></Image>
                 <TextBlock inlineAlignment="center" size="small" accessibilityRole="navigation" level="3">{ name }</TextBlock>
@@ -147,14 +160,15 @@ function Extension() {
             </View>;
           }
 
-          return <Pressable to={ url }>
+          return <Pressable to={ url } minInlineSize={"30%"}>
             <BlockStack padding={ ['base', 'none'] } spacing="tight">
               <Image source={ icon }></Image>
               <TextBlock inlineAlignment="center" size="small" accessibilityRole="navigation" level="3">{ name }</TextBlock>
             </BlockStack>
           </Pressable>;
         }) }
-      </InlineLayout>
+      </Grid>
+
     </View>
   );
 }
