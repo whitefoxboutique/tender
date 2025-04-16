@@ -132,7 +132,6 @@ function Extension() {
     // <InlineLayout blockAlignment="center" spacing="base" columns={ SWITCHER_OPTIONS.length } minInlineSize="fill">
     <View padding={ ['loose', 'none'] } inlineAlignment="center">
       { title && <Heading inlineAlignment="center">{ title }</Heading> }
-      ddf
       <Grid
         // columns={['3fr', '3fr', '3fr']}
         columns={ 
